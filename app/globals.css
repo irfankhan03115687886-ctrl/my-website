@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================
+   PREMIUM DESIGN SYSTEM — modern luxury minimal.
+
+   Every color utility across the whole codebase (buttons, cards,
+   admin classes, product cards, hero, etc.) reads from these CSS
+   variables via tailwind.config.js. Retinting them here restyles
+   the entire site without touching individual page/component files
+   — this is intentional: the old identity was a warm parchment-and-gold
+   ("brass") palette that read as dated; this is a deep-charcoal-and-
+   soft-white neutral base with exactly ONE refined accent hue per
+   theme, used sparingly (small badges, links, focus rings, the
+   occasional solid button) rather than plastered across every
+   button and border the way brass was.
+
+   The three swappable themes (dusk, neon, recon — see
+   ThemeSwitcher.jsx) are kept as a feature, just re-grounded in the
+   same neutral system with a different accent family each:
+     dusk is the default, a deep emerald accent
+     neon is a near-black base with a vivid electric-teal accent
+     recon is a matte tactical olive-and-black accent
+   ========================================================== */
+:root,
+[data-theme='dusk'] {
+  --c-ink: 17 24 28;
+  --c-ink-2: 24 32 38;
+  --c-forest: 9 58 43;
+  --c-forest-2: 6 42 31;
+  --c-canvas: 250 250 248;
+  --c-canvas-2: 255 255 255;
+  --c-brass: 21 101 78;
+  --c-brass-light: 45 143 112;
+  --c-ember: 148 68 47;
+  --c-cream: 246 246 244;
+}
+
+[data-theme='neon'] {
+  --c-ink: 10 12 14;
+  --c-ink-2: 16 19 22;
+  --c-forest: 7 38 43;
+  --c-forest-2: 4 26 30;
+  --c-canvas: 250 250 250;
+  --c-canvas-2: 255 255 255;
+  --c-brass: 6 214 194;
+  --c-brass-light: 94 255 235;
+  --c-ember: 148 68 47;
+  --c-cream: 246 246 244;
+}
+
+[data-theme='recon'] {
+  --c-ink: 15 16 13;
+  --c-ink-2: 22 24 19;
+  --c-forest: 35 40 25;
+  --c-forest-2: 24 28 17;
+  --c-canvas: 248 248 245;
+  --c-canvas-2: 255 255 255;
+  --c-brass: 74 84 42;
+  --c-brass-light: 122 138 71;
+  --c-ember: 148 68 47;
+  --c-cream: 244 244 240;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--c-ink));
+  color: rgb(var(--c-cream));
+}
+
+* {
+  transition: background-color 0.5s ease, border-color 0.5s ease, color 0.3s ease;
+}
+
+::selection {
+  background-color: rgb(var(--c-brass));
+  color: rgb(var(--c-cream));
+}
+
+@layer components {
+  .input {
+    @apply w-full rounded-lg border border-ink/10 bg-canvas px-4 py-3 text-sm text-ink placeholder:text-ink/40 transition-shadow duration-200 focus:border-brass/50 focus:shadow-[0_0_0_4px_rgb(var(--c-brass)/0.12)] focus:outline-none;
+  }
+
+  /* Primary CTA — solid deep charcoal, like Apple/COS. The one
+     accent colour is intentionally NOT the default button fill;
+     it shows up as a soft glow on hover instead, kept subtle. */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full border border-ink bg-ink px-7 py-3 font-mono text-[13px] uppercase tracking-[0.12em] text-cream shadow-[0_2px_10px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgb(var(--c-brass)/0.28)] active:translate-y-0 active:scale-[0.97] active:shadow-none;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-full border border-cream/25 px-7 py-3 font-mono text-[13px] uppercase tracking-[0.12em] text-cream transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-brass-light/70 hover:text-brass-light active:translate-y-0 active:scale-[0.97];
+  }
+
+  /* Solid accent button — the one place the accent hue gets to be
+     the whole fill, used sparingly for secondary/admin actions. */
+  .btn-dark {
+    @apply inline-flex items-center justify-center rounded-full border border-forest bg-forest px-7 py-3 font-mono text-[13px] uppercase tracking-[0.12em] text-cream transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-forest-2 hover:shadow-[0_10px_24px_rgba(0,0,0,0.28)] active:translate-y-0 active:scale-[0.97];
+  }
+
+  .btn-outline-ink {
+    @apply inline-flex items-center justify-center rounded-full border border-ink/15 px-7 py-3 font-mono text-[13px] uppercase tracking-[0.12em] text-ink transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-forest/50 hover:text-forest active:translate-y-0 active:scale-[0.97];
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-ink/10 bg-canvas-2 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_16px_40px_rgba(0,0,0,0.10)];
+  }
+
+  .admin-stat-card {
+    @apply rounded-2xl border border-ink/10 bg-canvas-2 p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_rgba(0,0,0,0.08)] transition-shadow duration-300 hover:shadow-[0_1px_2px_rgba(0,0,0,0.05),0_18px_36px_rgba(0,0,0,0.12)];
+  }
+
+  .admin-table {
+    @apply w-full border-collapse text-left text-sm;
+  }
+
+  .admin-table th {
+    @apply border-b border-ink/10 pb-3 pr-4 font-mono text-[11px] uppercase tracking-[0.1em] text-ink/40;
+  }
+
+  .admin-table td {
+    @apply border-b border-ink/5 py-3 pr-4 align-middle text-ink/75;
+  }
+
+  .admin-table tbody tr {
+    @apply transition-colors duration-150 hover:bg-ink/[0.02];
+  }
+
+  .status-pill {
+    @apply inline-flex items-center rounded-full border px-3 py-1 font-mono text-[11px] uppercase tracking-[0.1em];
+  }
+
+  .admin-nav-link {
+    @apply flex items-center gap-3 rounded-xl px-4 py-2.5 font-mono text-[13px] uppercase tracking-[0.1em] text-cream/55 transition-all duration-200 hover:bg-cream/[0.06] hover:text-cream;
+  }
+
+  .admin-nav-link.active {
+    @apply bg-brass/10 text-brass-light;
+  }
+
+  /* Shimmering skeleton for loading states — see components/Skeleton.jsx */
+  .skeleton {
+    @apply relative overflow-hidden bg-ink/5;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgb(var(--c-cream) / 0.12), transparent);
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--c-brass));
+  outline-offset: 2px;
+}
+
+/* ---------- Ambient cursor glow ---------- */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 380px;
+  margin-left: -190px;
+  margin-top: -190px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 40;
+  background: radial-gradient(circle, rgb(var(--c-brass) / 0.14) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  will-change: transform;
+}
+.cursor-glow.active {
+  opacity: 1;
+}
+@media (max-width: 768px) {
+  .cursor-glow {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
